@@ -1,0 +1,11 @@
+ R←Test_03(stopFlag batchFlag);⎕TRAP;buffer
+⍝ Make sure `List` works.
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ buffer←##.EventCodes.List'T'
+ →PassesIf'T'∧.=↑¨buffer[;0]
+ buffer←##.EventCodes.List''
+ →PassesIf(↑⍴buffer)=⍴##.EventCodes.⎕NL-2
+
+ R←∆OK

@@ -1,0 +1,8 @@
+ R←Test_01(stopFlag batchFlag);⎕TRAP
+⍝ Make sure the basics work
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ {}##.EventCodes.DEADLOCK
+
+ R←∆OK

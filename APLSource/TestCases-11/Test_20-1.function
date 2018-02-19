@@ -1,0 +1,11 @@
+ R←Test_20(stopFlag batchFlag);⎕TRAP
+⍝ Exercise the `History` method
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :Trap 0
+     ##.EventCodes.History
+     →FailsIf 1
+ :EndTrap
+
+ R←∆OK
