@@ -60,7 +60,7 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'1.2.0' '2018-02-19'
+      r←({⍵}⍕⎕THIS)'1.2.0.5' '2018-02-19'
     ∇
 
     ∇ History
