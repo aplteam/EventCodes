@@ -1,5 +1,5 @@
 :Class EventCodes
-⍝ This class carries all trappable event codes in Dyalog APL up to -- and including -- version 15.0.\\
+⍝ This class carries all trappable event codes in Dyalog APL up to -- and including -- version 17.0.\\
 ⍝ For transforming a number to the symbolic name see function `GetName`.
 
     ⎕IO←1 ⋄ ⎕ML←1
@@ -60,11 +60,13 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'1.2.0.5' '2018-02-19'
+      r←({⍵}⍕⎕THIS)'1.2.1.7' '2018-10-22'
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 1.2.1
+      ⍝   * Fix: documentation mentioned "up to 15.0" when it's actually up to and including 17.0
       ⍝ * 1.2.0
       ⍝   * First release after the conversion from the APL wiki to GitHub.
       ⍝ * 1.1.0
