@@ -1,0 +1,78 @@
+ html←ref ∆HTTPGet url;fromutf8;h2d;getchunklen;split;found;DRC;U;p;port;host;page;request;err;cmd;chunked;chunk;buffer;chunklength;done;datalen;header;wr;rc
+⍝ Get an HTTP page, format [HTTP[S]://][user:pass@]url[:port][/page]
+⍝ `ref` must point to a namespace that contains DRC (Conga).
+ ⎕IO←1 ⋄ ⎕ML←1
+ fromutf8←{0::(⎕AV,'?')[⎕AVU⍳⍵] ⋄ 'UTF-8'⎕UCS ⍵} ⍝ Turn raw UTF-8 input into text
+ h2d←{⎕IO←0 ⋄ 16⊥'0123456789abcdef'⍳U.lc ⍵} ⍝ hex to decimal
+ getchunklen←{¯1=len←¯1+⊃(NL⍷⍵)/⍳⍴⍵:¯1 ¯1 ⋄ chunklen←h2d len↑⍵ ⋄ (⍴⍵)<len+chunklen+4:¯1 ¯1 ⋄ len chunklen}
+ split←{(p↑⍵)((p←¯1+⍵⍳⍺)↓⍵)}
+ rc←0
+ :If found←3=ref.⎕NC'DRC.Init'
+     {}ref.DRC.Init''              ⍝ v3 intialisation
+     DRC←ref.DRC
+ :Else
+     'Could not find Conga or DRC object'⎕SIGNAL 906
+ :EndIf
+ U←ref.HTTPUtils ⍝ Uses utils from same place as DRC/Conga
+ p←{(∨/b)×1+(b←'//'⍷⍵)⍳1}url
+ port←80
+ url←p↓url              ⍝ Remove HTTP[s]:// if present
+ (host page)←'/'split url,(~'/'∊url)/'/'    ⍝ Extract host and page from url
+ host port←port U.HostPort host ⍝ Check for override of port number
+ request←'GET ',page,' HTTP/1.1',NL,'Host: ',host,NL,'User-Agent: Dyalog/Conga',NL,'Accept: */*',NL ⍝ build the request
+ :If 2=DRC.⎕NC'flate'
+ :AndIf DRC.flate.IsAvailable ⍝ if compression is available
+     request,←'Accept-Encoding: deflate',NL ⍝ indicate we can accept it
+ :EndIf
+ (err cmd)←2↑rc←DRC.Clt''host port'Text' 100000    ⍝ 100,000 is max receive buffer size
+ :If 0=err
+ :AndIf 0=⊃rc←DRC.Send cmd(request,NL)
+     chunked chunk buffer chunklength←0 '' '' 0
+     (done html datalen header)←0 ⍬ 0(0 ⍬)
+     :Repeat
+         :If ~done←0≠1⊃wr←DRC.Wait cmd 5000            ⍝ Wait up to 5 secs
+             :If wr[3]∊'Block' 'BlockLast'             ⍝ If we got some html
+                 :If chunked
+                     chunk←4⊃wr
+                 :ElseIf 0<⍴html,←4⊃wr
+                 :AndIf 0=1⊃header
+                     header←U.DecodeHeader html
+                     :If 0<1⊃header
+                         html←(1⊃header)↓html
+                         :If chunked←∨/'chunked'⍷(2⊃header)U.GetValue'Transfer-Encoding' ''
+                             chunk←html
+                             html←''
+                         :Else
+                             datalen←⊃((2⊃header)U.GetValue'Content-Length' 'Numeric'),¯1 ⍝ ¯1 if no content length not specified
+                         :EndIf
+                     :EndIf
+                 :EndIf
+             :Else
+                 ⎕←wr ⍝ Error?
+                 .
+             :EndIf
+             :If chunked
+                 buffer,←chunk
+                 :While done<¯1≠⊃(len chunklength)←getchunklen buffer
+                     :If (⍴buffer)≥4+len+chunklength
+                         html,←chunklength↑(len+2)↓buffer
+                         buffer←(chunklength+len+4)↓buffer
+                         :If done←0=chunklength ⍝ chunked transfer can add headers at the end of the transmission
+                             header[2]←⊂(2⊃header)⍪2⊃U.DecodeHeader buffer
+                         :EndIf
+                     :EndIf
+                 :EndWhile
+             :Else
+                 done←done∨'BlockLast'≡3⊃wr                        ⍝ Done if socket was closed
+                 :If datalen>0
+                     done←done∨datalen≤⍴html ⍝ ... or if declared amount of html rcvd
+                 :Else
+                     done←done∨(∨/'</html>'⍷html)∨(∨/'</HTML>'⍷html)
+                 :EndIf
+             :EndIf
+         :EndIf
+     :Until done
+ :Else
+     911 ⎕SIGNAL⍨'Connection failed ',,⍕wr
+ :EndIf
+ {}DRC.Close cmd

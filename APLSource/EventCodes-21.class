@@ -60,11 +60,15 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'1.2.1.7' '2018-10-22'
+      r←({⍵}⍕⎕THIS)'1.3.0.8' '2018-10-25'
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 1.3.0
+      ⍝   * `List` now excepts a left argument: '' (the default) results in the matrix being sorted
+      ⍝      by symbolic name. `⍬` results in it being sorted by number.
+      ⍝   * Bug fix: `List` crashed on a right argument `⍬`. 
       ⍝ * 1.2.1
       ⍝   * Fix: documentation mentioned "up to 15.0" when it's actually up to and including 17.0
       ⍝ * 1.2.0
@@ -93,15 +97,27 @@
       :EndIf
     ∇
 
-    ∇ __allNumbers←List __start
+    ∇ __allNumbers←{__sortType}List __start
     ⍝ Returns a matrix with all symbolic names and their numbers in case `__start` is empty.\\
     ⍝ In case `__start` is not empty only the symbolic names that start with `__start` are listed.\\
-    ⍝ `start` is **not** case sensitive.
+    ⍝ `start__` is **not** case sensitive.\\
+    ⍝ You can force `List` to sort the result. Default is sorting by symbolic name. Specifying `''`
+    ⍝ as the left argument has the same result. If you specify `⍬` instead the list is sorted by number.
       :Access Public Shared
+      :If 0=⎕NC'__sortType'
+          __sortType←''
+      :EndIf
       __allNumbers←⎕NL-2
       __allNumbers←('__'∘≢¨2↑¨__allNumbers)/__allNumbers
       __allNumbers←__allNumbers,[1.5]⍎¨__allNumbers
-      :If ~0∊⍴__start←{1(819⌶)⍵}__start~'*'
+      :If ''≡__sortType
+          __allNumbers←__allNumbers[⍋__allNumbers[;1];]
+      :ElseIf ⍬≡__sortType
+          __allNumbers←__allNumbers[⍋__allNumbers[;2];]
+      :Else
+          'Invalid sort type: either '''' (alpha) or ⍬ (numeric)'⎕SIGNAL 11
+      :EndIf
+      :If ~0∊⍴__start←{1(819⌶)⍕⍵}__start~'*'
           __allNumbers←(((⍴,__start)↑[2]↑__allNumbers[;1])∧.=__start)⌿__allNumbers
       :EndIf
     ∇
