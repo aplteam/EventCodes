@@ -69,15 +69,8 @@
       ⍝   * `List` now excepts a left argument: '' (the default) results in the matrix being sorted
       ⍝      by symbolic name. `⍬` results in it being sorted by number.
       ⍝   * Bug fix: `List` crashed on a right argument `⍬`. 
-      ⍝ * 1.2.1
-      ⍝   * Fix: documentation mentioned "up to 15.0" when it's actually up to and including 17.0
-      ⍝ * 1.2.0
-      ⍝   * First release after the conversion from the APL wiki to GitHub.
-      ⍝ * 1.1.0
-      ⍝   * `GetName` can now process vectors as well.
-      ⍝   * Method `History` added
-      ⍝   * Now managed by acre 3
-      ⍝ * 1.0.0
+      ⍝\\
+      ⍝ For information regarding older versions see <https://github.com/aplteam/EventCodes/releases>
     ∇
 
     ∇ __name←GetName __eventCode;__allNumbers;__ind
