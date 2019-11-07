@@ -3,14 +3,14 @@
 ⍝ Dyalog are installed on the current machine
  r←''
  :If 0≠≢list←##.WinReg.GetAllSubKeyNames'Software\Dyalog'
- :AndIf 0≠≢list←('Dyalog APL/W'{⍺∘≡¨(⍴⍺)↑¨⍵}list)/list
-     :If 0∊≢list←(50<↑∘⍴¨##.WinReg.GetAllValueNames¨(⊂'Software\Dyalog\'),¨list)/list
+ :AndIf 0≠≢list←('Dyalog APL/W'{⍺∘≡¨(≢⍺)↑¨⍵}list)/list
+     :If 0∊≢list←(50<≢¨##.WinReg.GetAllValueNames¨(⊂'Software\Dyalog\'),¨list)/list
          'No version of Dyalog was found'⎕SIGNAL 11
      :Else
          list←{⍵⌿⍨∨/'Dyalog APL/W'⍷↑⍵}list
-         versions←2⊃¨' '##.APLTreeUtils.Split¨list
-         ind←⍋versions
+         versions←3⊃¨' '##.APLTreeUtils.Split¨list
+         ind←⍋↑versions
          list←list[ind]
-         r←↑¯1↑list
+         r←⊃¯1↑list
      :EndIf
  :EndIf

@@ -1,4 +1,4 @@
- html←ref ∆HTTPGet url;fromutf8;h2d;getchunklen;split;found;DRC;U;p;port;host;page;request;err;cmd;chunked;chunk;buffer;chunklength;done;datalen;header;wr;rc
+ html←ref ∆HTTPGetBefore17_1 url;fromutf8;h2d;getchunklen;split;found;DRC;U;p;port;host;page;request;err;cmd;chunked;chunk;buffer;chunklength;done;datalen;header;wr;rc;⎕IO;⎕ML
 ⍝ Get an HTTP page, format [HTTP[S]://][user:pass@]url[:port][/page]
 ⍝ `ref` must point to a namespace that contains DRC (Conga).
  ⎕IO←1 ⋄ ⎕ML←1

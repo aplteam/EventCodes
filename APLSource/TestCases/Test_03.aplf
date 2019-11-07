@@ -4,8 +4,8 @@
  R←∆Failed
 
  buffer←##.EventCodes.List'T'
- →PassesIf'T'∧.=↑¨buffer[;0]
+ →PassesIf'T'∧.=⊃¨buffer[;1]
  buffer←##.EventCodes.List''
- →PassesIf(↑⍴buffer)=⍴##.EventCodes.⎕NL-2
+ →PassesIf=/≢¨buffer(##.EventCodes.⎕NL ¯2)
 
  R←∆OK

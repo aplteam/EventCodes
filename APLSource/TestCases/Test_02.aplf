@@ -5,13 +5,13 @@
 
  →PassesIf'DEADLOCK'≡##.EventCodes.GetName ##.EventCodes.DEADLOCK
  →PassesIf'DEADLOCK' 'SYNTAX_ERROR'≡##.EventCodes.GetName ##.EventCodes.(DEADLOCK SYNTAX_ERROR)
- →PassesIf 0∊⍴##.EventCodes.GetName''
- →PassesIf 0∊⍴##.EventCodes.GetName ⍬
+ →PassesIf 0=≢##.EventCodes.GetName''
+ →PassesIf 0=≢##.EventCodes.GetName ⍬
  :Trap 6
      {}##.EventCodes.GetName ¯2
      →FailsIf 1
  :Else
-     →PassesIf'Unknown event number'≡↑⎕DM
+     →PassesIf'Unknown event number'≡⊃⎕DM
  :EndTrap
 
  R←∆OK

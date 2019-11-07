@@ -1,6 +1,8 @@
 :Class EventCodes
 ⍝ This class carries all trappable event codes in Dyalog APL up to -- and including -- version 17.0.\\
-⍝ For transforming a number to the symbolic name see function `GetName`.
+⍝ For transforming a number to the symbolic name see function `GetName`.\\
+⍝ Instead of using `⎕EM` you can use `QEM`: fed with an integer it behaves exactly as `⎕EM`. Fed with an error message
+⍝ it transforms this error message into the error code. If the error is unknwon
 
     ⎕IO←1 ⋄ ⎕ML←1
 
@@ -60,15 +62,16 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'1.3.0.1.1' '2018-10-25'
+      r←({⍵}⍕⎕THIS)'1.4.0.13' '2019-11-06'
     ∇
 
     ∇ History
       :Access Public Shared
-      ⍝ * 1.3.0
-      ⍝   * `List` now excepts a left argument: '' (the default) results in the matrix being sorted
-      ⍝      by symbolic name. `⍬` results in it being sorted by number.
-      ⍝   * Bug fix: `List` crashed on a right argument `⍬`. 
+      ⍝ * 1.4.0
+      ⍝   * Method `QEM` added. Accepts either a positive integer (same as `⎕EM`) or a character vector
+      ⍝     (error message). In the latter case the error number is returned or, if the error message
+      ⍝     is unknown, and error is thrown.
+      ⍝   * Bug fix: `List` crashed when sorting by number was required.
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/EventCodes/releases>
     ∇
@@ -78,15 +81,45 @@
     ⍝ * If the right argument is a scalar or a one-element vector then a text vector is returned.
     ⍝ * If the right argument is a vector then a vector of text vectors is returned.
       :Access Public Shared
-      :If 0∊⍴__eventCode
+      :If 0=≢__eventCode
           __name←''
       :Else
-          __allNumbers←⎕NL-2
+          __allNumbers←' '~¨⍨↓⎕NL 2
           __allNumbers←⍎¨('__'∘≢¨2↑¨__allNumbers)/__allNumbers
           __ind←__allNumbers⍳__eventCode
           'Unknown event number'⎕SIGNAL 6/⍨__ind∨.>⍴__allNumbers
           __name←(⎕NL-2)[__ind]
           __name←⊃∘,⍣(⊃1=⍴,__ind)⊣__name
+      :EndIf
+    ∇
+
+    ∇ __r←QEM __y;__list;__bool
+    ⍝ In case `y` is an integer `r` becomes the associated error message.\\
+    ⍝ In case `y` is a character vector r becomes the associated error number.\\
+    ⍝ If a provided error message is unknown `⍬` is returned. If `y` is empty `r` is empty.
+      :Access Public Shared
+      :If 0=1↑0⍴∊__y
+          :If 0=≢__y
+              __r←''
+          :Else
+              __list←List''
+              :If 1≠+/__bool←__y=__list[;2]
+                  'Unknown error number'⎕SIGNAL 11
+              :Else
+                  __r←1⊃__list[__bool⍳1;]
+              :EndIf
+          :EndIf
+      :Else
+          :If 0=≢__y
+              __r←⍬
+          :Else
+              __list←List''
+              :If 1≠+/__bool←__y∘≡¨__list[;1]
+                  'Unknown error message'⎕SIGNAL 11
+              :Else
+                  __r←2⊃__list[__bool⍳1;]
+              :EndIf
+          :EndIf
       :EndIf
     ∇
 
@@ -100,17 +133,17 @@
       :If 0=⎕NC'__sortType'
           __sortType←''
       :EndIf
-      __allNumbers←⎕NL-2
+      __allNumbers←' '~¨⍨↓⎕NL 2
       __allNumbers←('__'∘≢¨2↑¨__allNumbers)/__allNumbers
       __allNumbers←__allNumbers,[1.5]⍎¨__allNumbers
       :If ''≡__sortType
-          __allNumbers←__allNumbers[⍋__allNumbers[;1];]
+          __allNumbers←__allNumbers[⍋↑__allNumbers[;1];]
       :ElseIf ⍬≡__sortType
           __allNumbers←__allNumbers[⍋__allNumbers[;2];]
       :Else
           'Invalid sort type: either '''' (alpha) or ⍬ (numeric)'⎕SIGNAL 11
       :EndIf
-      :If ~0∊⍴__start←{1(819⌶)⍕⍵}__start~'*'
+      :If 0≠≢__start←{1(819⌶)⍕⍵}__start~'*'
           __allNumbers←(((⍴,__start)↑[2]↑__allNumbers[;1])∧.=__start)⌿__allNumbers
       :EndIf
     ∇

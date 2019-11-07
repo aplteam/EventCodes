@@ -1,0 +1,4 @@
+ html←∆HTTPGet url
+⍝ Get an HTTP page in 17.1 (not before!)
+ html←HttpCommand.Get url
+ ⍝Done

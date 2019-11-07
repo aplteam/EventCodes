@@ -19,7 +19,7 @@
      report,←(⊂' ⍝TODO⍝ found:'),(⊂'   '),¨buff
  :EndIf
 
- xml←⎕XML'flat'#.APLTreeUtils.ReadUtf8File'publish.config'
+ xml←⎕XML'flat'##.APLTreeUtils.ReadUtf8File'publish.config'
  :If (↑⍴xml)>row←xml[;1]⍳⊂'main'
      source←2⊃xml[row;]
      report,←⊂'*** Scan ',source

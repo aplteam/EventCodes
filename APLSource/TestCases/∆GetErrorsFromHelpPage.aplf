@@ -1,0 +1,25 @@
+ errors←∆GetErrorsFromHelpPage url;TEMP;html;buff;bool;codes;comment
+ :If 17.1>↑(//)⎕VFI{⍵/⍨2>+\'.'=⍵}2⊃#.APLVersion
+     TEMP←⎕NS''
+     TEMP.(⎕IO ⎕ML)←1 1
+     (⊃'DRC' 'HTTPUtils')TEMP.⎕CY'Conga'
+     html←TEMP ∆HTTPGetBefore17_1 url
+
+ :Else
+     {}⎕SE.UCMD'Load HttpCommand'
+     buff←∆HTTPGet url
+     html←buff.Data
+ :EndIf
+ html←{⍵↓⍨3⊃{⍵/⍳≢⍵}'<table'⍷⍵}html
+ buff←(≢'<td class="Dyalog">')↓¨{⍵~⎕TC}¨('<td class="Dyalog">'⍷html)⊂html
+ bool←(≢buff)⍴1 0
+ codes←{⍵↑⍨¯1+⍵⍳'<'}¨bool/buff
+ bool←~bool
+ comment←{⍵↑⍨¯1+1⍳⍨'</td>'⍷⍵}¨bool/buff
+ bool←{⊃⊃⎕VFI ⍵}¨codes
+ (codes comment)←bool∘/¨codes comment
+ codes←{⊃⊃(//)⎕VFI ⍵}¨codes
+ bool←~codes∊0 1000
+ (codes comment)←bool∘/¨codes comment
+ errors←codes,[1.5]comment
+⍝Done
