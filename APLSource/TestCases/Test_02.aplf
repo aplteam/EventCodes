@@ -1,17 +1,17 @@
  R←Test_02(stopFlag batchFlag);⎕TRAP
 ⍝ Make sure `GetName` works.
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
- →PassesIf'DEADLOCK'≡##.EventCodes.GetName ##.EventCodes.DEADLOCK
- →PassesIf'DEADLOCK' 'SYNTAX_ERROR'≡##.EventCodes.GetName ##.EventCodes.(DEADLOCK SYNTAX_ERROR)
- →PassesIf 0=≢##.EventCodes.GetName''
- →PassesIf 0=≢##.EventCodes.GetName ⍬
+ →T.PassesIf'DEADLOCK'≡##.EventCodes.GetName ##.EventCodes.DEADLOCK
+ →T.PassesIf'DEADLOCK' 'SYNTAX_ERROR'≡##.EventCodes.GetName ##.EventCodes.(DEADLOCK SYNTAX_ERROR)
+ →T.PassesIf 0=≢##.EventCodes.GetName''
+ →T.PassesIf 0=≢##.EventCodes.GetName ⍬
  :Trap 6
      {}##.EventCodes.GetName ¯2
      →FailsIf 1
  :Else
-     →PassesIf'Unknown event number'≡⊃⎕DM
+     →T.PassesIf'Unknown event number'≡⊃⎕DM
  :EndTrap
 
- R←∆OK
+ R←T._OK

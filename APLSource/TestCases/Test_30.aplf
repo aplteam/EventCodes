@@ -1,12 +1,12 @@
  R←Test_30(stopFlag batchFlag);⎕TRAP;errors;TEMP;html;list;version
 ⍝ Check whether we cover all documented codes according to the latest installed version
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  version←3⊃' '##.APLTreeUtils.Split GetHighestInstalledAPL ⍬
  errors←∆GetErrorsFromHelpPage'http://help.dyalog.com/',version,'/Content/Language/System%20Functions/trap.htm'
  list←##.EventCodes.List''
- →PassesIf∧/list[;2]∊errors[;1]
- →PassesIf∧/errors[;1]∊list[;2]
+ →T.PassesIf∧/list[;2]∊errors[;1]
+ →T.PassesIf∧/errors[;1]∊list[;2]
 
- R←∆OK
+ R←T._OK

@@ -1,18 +1,18 @@
  R←Test_40(stopFlag batchFlag);⎕TRAP;dmx
 ⍝ Check the `QEM` method.
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
- →PassesIf ⍬≡##.EventCodes.QEM''
- →PassesIf''≡##.EventCodes.QEM ⍬
- →PassesIf 1≡##.EventCodes.QEM'WS_FULL'
- →PassesIf'WS_FULL'≡##.EventCodes.QEM 1
+ →T.PassesIf ⍬≡##.EventCodes.QEM''
+ →T.PassesIf''≡##.EventCodes.QEM ⍬
+ →T.PassesIf 1≡##.EventCodes.QEM'WS_FULL'
+ →T.PassesIf'WS_FULL'≡##.EventCodes.QEM 1
  :Trap 0
      {}##.EventCodes.QEM'Unknown'
      →FailsIf 1
  :Else
      dmx←⎕DMX
-     →PassesIf'Unknown error message'≡⊃dmx.DM
+     →T.PassesIf'Unknown error message'≡⊃dmx.DM
  :EndTrap
 
- R←∆OK
+ R←T._OK
