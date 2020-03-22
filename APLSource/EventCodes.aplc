@@ -62,16 +62,13 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'1.4.0.14' '2019-11-06'
+      r←({⍵}⍕⎕THIS)'2.0.0.15' '2020-03-22'
     ∇
 
     ∇ History
       :Access Public Shared
-      ⍝ * 1.4.0
-      ⍝   * Method `QEM` added. Accepts either a positive integer (same as `⎕EM`) or a character vector
-      ⍝     (error message). In the latter case the error number is returned or, if the error message
-      ⍝     is unknown, and error is thrown.
-      ⍝   * Bug fix: `List` crashed when sorting by number was required.
+      ⍝ * 2.0.0
+      ⍝   * BREAKING CHANGE: File extension changed from .DYALOG to .APLC
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/EventCodes/releases>
     ∇

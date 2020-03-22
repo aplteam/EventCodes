@@ -10,16 +10,20 @@
      buff←∆HTTPGet url
      html←buff.Data
  :EndIf
- html←{⍵↓⍨3⊃{⍵/⍳≢⍵}'<table'⍷⍵}html
- buff←(≢'<td class="Dyalog">')↓¨{⍵~⎕TC}¨('<td class="Dyalog">'⍷html)⊂html
- bool←(≢buff)⍴1 0
- codes←{⍵↑⍨¯1+⍵⍳'<'}¨bool/buff
- bool←~bool
- comment←{⍵↑⍨¯1+1⍳⍨'</td>'⍷⍵}¨bool/buff
- bool←{⊃⊃⎕VFI ⍵}¨codes
- (codes comment)←bool∘/¨codes comment
- codes←{⊃⊃(//)⎕VFI ⍵}¨codes
- bool←~codes∊0 1000
- (codes comment)←bool∘/¨codes comment
- errors←codes,[1.5]comment
+ :If ∨/'<title>401 Unauthorized</title>'⍷html
+     errors←''
+ :Else
+     html←{⍵↓⍨3⊃{⍵/⍳≢⍵}'<table'⍷⍵}html
+     buff←(≢'<td class="Dyalog">')↓¨{⍵~⎕TC}¨('<td class="Dyalog">'⍷html)⊂html
+     bool←(≢buff)⍴1 0
+     codes←{⍵↑⍨¯1+⍵⍳'<'}¨bool/buff
+     bool←~bool
+     comment←{⍵↑⍨¯1+1⍳⍨'</td>'⍷⍵}¨bool/buff
+     bool←{⊃⊃⎕VFI ⍵}¨codes
+     (codes comment)←bool∘/¨codes comment
+     codes←{⊃⊃(//)⎕VFI ⍵}¨codes
+     bool←~codes∊0 1000
+     (codes comment)←bool∘/¨codes comment
+     errors←codes,[1.5]comment
+ :EndIf
 ⍝Done

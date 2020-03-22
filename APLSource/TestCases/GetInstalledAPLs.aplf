@@ -1,0 +1,7 @@
+ list←GetInstalledAPLs dummy
+⍝ Examines the Registry in order to find out which versions of Dyalog are installed and return all of them
+ list←''
+ :If 0≠≢list←##.WinReg.GetAllSubKeyNames'Software\Dyalog'
+ :AndIf 0≠≢list←('Dyalog APL/W'{⍺∘≡¨(≢⍺)↑¨⍵}list)/list
+     list←(50<≢¨##.WinReg.GetAllValueNames¨(⊂'Software\Dyalog\'),¨list)/list
+ :EndIf
