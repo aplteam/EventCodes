@@ -1,0 +1,1 @@
+{  alias: "",  api: "EventCodes",  date: "2020-03-22",  description: "Constants with meaningful names for Dyalog error codes",  files: "",  group: "aplteam",  name: "EventCodes",  project_url: "https://github.com/aplteam/EventCodes",  source: "APLSource/EventCodes.aplc",  tags: "aplteam;event-constants;windows;linux;mac-os",  version: "2.0.0",}

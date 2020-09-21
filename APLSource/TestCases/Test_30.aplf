@@ -5,7 +5,7 @@
 
  list←⌽GetInstalledAPLs ⍬
  :Repeat
-     version←3⊃' '##.APLTreeUtils.Split⊃list
+     version←3⊃' '##.APLTreeUtils2.Split⊃list
      :If 0=≢errors←∆GetErrorsFromHelpPage'http://help.dyalog.com/',version,'/Content/Language/System%20Functions/trap.htm'
          list←1↓list
      :EndIf
