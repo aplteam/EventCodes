@@ -62,11 +62,13 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'3.0.0.22' '2020-09-21'
+      r←({⍵}⍕⎕THIS)'3.0.1+24' '2021-03-02'
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 3.0.1
+      ⍝   * Package config corrected
       ⍝ * 3.0.0
       ⍝   * BREAKING CHANGES:
       ⍝     * Requires now Dyalog 18.0 or better
