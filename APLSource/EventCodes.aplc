@@ -62,7 +62,7 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'3.0.1+24' '2021-03-02'
+      r←({⍵}⍕⎕THIS)'3.0.1+25' '2021-03-02'
     ∇
 
     ∇ History
