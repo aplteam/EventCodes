@@ -13,7 +13,7 @@
  :If ∨/'<title>401 Unauthorized</title>'⍷html
      errors←''
  :Else
-     html←{⍵↓⍨3⊃{⍵/⍳≢⍵}'<table'⍷⍵}html
+     html←{⍵↓⍨3⊃{⍵/⍳≢⍵}'<table'⍷⍵}html  ⍝ Index Error?! Maybe the documentation is not yet available for the selected version?
      buff←(≢'<td class="Dyalog">')↓¨{⍵~⎕TC}¨('<td class="Dyalog">'⍷html)⊂html
      bool←(≢buff)⍴1 0
      codes←{⍵↑⍨¯1+⍵⍳'<'}¨bool/buff

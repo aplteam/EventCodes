@@ -62,11 +62,13 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'3.0.1+25' '2021-03-02'
+      r←({⍵}⍕⎕THIS)'3.1.0+25' '2024-11-30'
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 3.1.0
+      ⍝   * 819⌶ exchanged against ⎕C for 20.0-readiness
       ⍝ * 3.0.1
       ⍝   * Package config corrected
       ⍝ * 3.0.0
@@ -144,7 +146,7 @@
       :Else
           'Invalid sort type: either '''' (alpha) or ⍬ (numeric)'⎕SIGNAL 11
       :EndIf
-      :If 0≠≢__start←{1(819⌶)⍕⍵}__start~'*'
+      :If 0≠≢__start←{2::1(819⌶)⍵ ⋄ 1 ⎕C ⍵}⍕__start~'*'
           __allNumbers←(((⍴,__start)↑[2]↑__allNumbers[;1])∧.=__start)⌿__allNumbers
       :EndIf
     ∇
