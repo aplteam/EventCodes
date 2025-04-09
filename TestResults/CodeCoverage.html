@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Coverage</title>
+<meta charset="utf-8"/>
+<style>
+@media screen{
+    html {background-color: #FFFFF0;}
+body {
+    font-size: 16px;
+    font-family : Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Arial, Sans-serif;
+    margin: 1em;
+}
+th, td {padding: 5px 10px;}
+th {text-align: left;}
+h1, h2, h3, h4, h5, h6 {color: #424242;}
+h1 {font-size: 22px;}
+h2 {font-size: 18px; margin-top: 2em; margin-bottom:0.3em;}
+tbody tr:nth-child(even) {background-color: #F0F0F0;}
+tbody tr:nth-child(odd) {background-color: #FAFAFA;}
+th {background-color: #E6E6E6;color: #424242;}
+table {border: silver 1px solid; font-size: 14px;font-family: APLFont, monospace;}
+code , code a {font-size: 14px; font-family: APLFont, monospace;}
+code.header {
+    font-size: 16px; 
+    font-family: APLFont, monospace; 
+    margin: 1.5em 0.5em 0 0.5em; 
+    padding:0;
+    display: block;
+}
+div.code-block {
+    border: 1px silver dashed;
+    background-color: #F2F2F2;
+    display: block;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    padding: 0.5em;
+}
+div.code-block.missing {
+    background-color: #fa605254;
+}
+div.code-block code {display: block; white-space: pre-wrap; margin:0; padding:0; word-wrap: break-word;}
+.emphasize { font-weight: 800;}
+ul li, ol li {margin: 0.7em 0.2em;}
+.float-right {float:right;}
+.no-underline {    text-decoration :none;}
+.top-links {font-size:20px; padding-left: 0.6em;}
+.align-right {text-align: right;}
+#footer hr {margin-top:1.5em;}
+#footer p {margin-top:5px; padding-top:0; font-size: 9px;}
+@font-face {
+        font-family: "APLFont";
+    src:
+        local("APL385 Unicode"),
+        url("https://misc.aplteam.com/apl385.ttf") format("truetype");
+}
+.info {border: 1px silver dashed; background-color: #F2F2F2;margin: 0.5em; padding: 0.5em;}
+}
+@media print{@page {size: portrait}
+@page {
+    margin: 1cm 1cm 1cm 1.75cm;
+    @bottom-right {
+        content: counter(page) " / " counter(pages);
+  }
+}
+body {
+    font: 12pt "Times New Roman", Times, serif;
+    line-height: 1.2;
+     /* CSS3 filter, at the moment Webkit only. Prefix it for future implementations */
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%); /* future-proof */
+}
+h1 {font-size: 18pt;}
+h2 {font-size: 16pt; margin-top: 10pt; margin-bottom: 3pt;}
+th, td {padding: 2pt 3pt;}
+th {text-align: left;background-color: #DBDBDB;}
+tbody tr:nth-child(odd) {background-color: #EDEDED;}
+table {
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-size: 8pt;
+    font-family: APLFont, monospace;
+}
+div.keep-together {break-inside: avoid; break-before:auto;}
+table {border: silver 1pt solid;}
+code , code a {font-size: 8pt; font-family: APLFont, monospace;}
+code.header {
+    font-size: 8pt;
+    font-family: APLFont, monospace;
+    margin: 7pt 3pt 0 10pt;
+    padding:0;
+    display: block;
+}
+div.code-block {
+    border: 1pt silver dashed;
+    background-color: #F2F2F2;
+    display: block;
+    margin: 4pt 4pt 4pt 4pt;
+    padding: 4pt;
+}
+div.code-block code {display: block; white-space: pre-wrap; margin:0; padding:0; word-wrap: break-word;}
+.emphasize { font-weight: 800;}
+a {text-decoration: none;color: black;}
+ul li, ol li {margin: 8pt 3pt;}
+.no-print {display:none;}
+.align-right {text-align: right;}
+#footer hr {margin-top:1.5em;}
+#footer p {margin-top:5pt; padding-top:0; font-size: 6pt;}
+@font-face {
+        font-family: "APLFont";
+    src:
+        local("APL385 Unicode"),
+        url("https://misc.aplteam.com/apl385.ttf") format("truetype");
+}
+.info {border: 1px silver dashed; background-color: #F2F2F2;margin: 8px; padding: 8px;}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.2/b-2.0.0/b-print-2.0.0/fh-3.1.9/r-2.2.9/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.2/b-2.0.0/b-print-2.0.0/fh-3.1.9/r-2.2.9/datatables.min.js"></script>
+</head>
+<body>
+<h1 id="top">Coverage Report</h1>
+<p>Watched: 5 fns/opr within <code>#.EventCodes.EventCodes</code></p>
+<p>The test suite was executed once:</p>
+<table>
+<thead>
+<tr><th>Executed at</th><th>APLVersion</th><th>Memory (MB)</th></tr>
+</thead>
+<tbody>
+<tr><td>2025-04-09 15:14:39</td><td>Windows-64 ⋄ 19.0.51432.0 ⋄ W ⋄ Development ⋄ Unicode</td><td>113</td></tr>
+</tbody>
+</table>
+<p>Overall 89% of the testable code is covered.</p>
+<p>(Comment lines, empty lines, all <code>:End</code>* lines etc. are ignored)</p>
+<p>2 of the fns/opr are 100% covered.</p>
+<div id="partly-covered" class="keep-together">
+<table id="percent">
+<thead>
+<tr><th style="text-align:left;">Function/Operator</th><th style="text-align:left;">Lines not executed</th><th style="text-align:left;">Coverage</th><th style="text-align:right;">≢</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#listing_1" title="Link to listing">#.EventCodes.EventCodes.Version</a></td><td>9</td><td>67</td><td>3</td></tr>
+<tr><td><a href="#listing_2" title="Link to listing">#.EventCodes.EventCodes.List</a></td><td>16, 18</td><td>83</td><td>12</td></tr>
+<tr><td><a href="#listing_3" title="Link to listing">#.EventCodes.EventCodes.QEM</a></td><td>11</td><td>92</td><td>13</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_4" title="Link to listing">#.EventCodes.EventCodes.History</a></td><td></td><td>100</td><td>0</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_5" title="Link to listing">#.EventCodes.EventCodes.GetName</a></td><td></td><td>100</td><td>8</td></tr>
+</tbody>
+</table>
+</div>
+<script>
+$(document).ready(function() {
+    var oTable;
+    oTable = $("#percent").DataTable( {
+        paging:   false,
+        ordering: true,
+        info:     true,
+        fixedHeader: true,
+        order: [2,"asc"],
+        dom: "Bft",
+        drawCallback: function( settings ) {
+             var api = this.api();
+             $('.header[id^="listing_"]').next().addBack().css("display","none");
+             api.rows( {page:"current"} ).data().each(function(data){
+              id = data[0];
+              id = id.match(/"(\#.*?)"/);
+              if (id){$(id[1]).next().addBack().css("display","block");}
+             })
+        },      
+        buttons: [
+        {
+            text: "Partly covered (3)",
+            titleAttr: "50%",
+            className: "active",
+            action: function ( e, dt, node, config ) {
+                var text = this.text();
+                var search = "^(?!(0%|100%)).*";
+                oTable.column(2)
+                    .search(search,true,false,false)
+                    .draw();
+                $(".dt-buttons button").removeClass("active");
+                this.active( true );
+            }
+        },
+        {
+            text: "Uncovered (0)",
+            titleAttr: "0%",
+            className: "active",
+            action: function ( e, dt, node, config ) {
+                var text = this.text();
+                var search = "^0%";
+                oTable.column(2)
+                    .search(search,true,false,false)
+                    .draw();
+                $(".dt-buttons button").removeClass("active");
+                this.active( true );
+            }
+        },
+        {
+            text: "Fully covered (2)",
+            titleAttr: "100%",
+            className: "active",
+            action: function ( e, dt, node, config ) {
+                var text = this.text();
+                var search = "100%";
+                oTable.column(2)
+                    .search(search,true,false,false)
+                    .draw();
+                $(".dt-buttons button").removeClass("active");
+                this.active( true );
+            }
+        },
+        {
+            text: "All (5)",
+            titleAttr: "all",
+            className: "active",
+            action: function ( e, dt, node, config ) {
+                var text = this.text();
+                var search = ".";
+                oTable.column(2)
+                    .search(search,true,false,false)
+                    .draw();
+                $(".dt-buttons button").removeClass("active");
+                this.active( true );
+            }
+        },
+    ],
+ 
+        columnDefs: [
+            {className: "align-right", targets: [2,3]
+            },
+            {
+                render: function ( data, type, row, meta ) {
+                            return data+"%" ;        
+                        },
+                targets: 2
+            }
+        ]             
+    } );
+    oTable.button(0).trigger();
+
+} );    
+</script>
+<h2>Listings</h2>
+<code class="header" id="listing_1">#.EventCodes.EventCodes.Version &mdash; 67%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←Version</code>
+<code> [1]      ⍝ Returns the version number from `TatinVars` if possible.</code>
+<code> [2]      ⍝ See also `History`</code>
+<code> [3]   :Access Public Shared</code>
+<code> [4]   :If 0&lt;##.⎕NC'TatinVars.CONFIG'</code>
+<code> [5]       r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version</code>
+<code> [6]   :Else</code>
+<code> [7]      ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.</code>
+<code> [8]      ⍝ In such cases we cannot provide a version number, so we return just ''.</code>
+<code class="emphasize">→[9]       r←''</code>
+<code> [10]  :EndIf</code>
+</div>
+<code class="header" id="listing_2">#.EventCodes.EventCodes.List &mdash; 83%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  __allNumbers←{__sortType}List __start</code>
+<code> [1]      ⍝ Returns a matrix with all symbolic names and their numbers in case `__start` is empty.\\</code>
+<code> [2]      ⍝ In case `__start` is not empty only the symbolic names that start with `__start` are listed.\\</code>
+<code> [3]      ⍝ `start__` is **not** case sensitive.\\</code>
+<code> [4]      ⍝ You can force `List` to sort the result. Default is sorting by symbolic name. Specifying `''`</code>
+<code> [5]      ⍝ as the left argument has the same result. If you specify `⍬` instead the list is sorted by number.</code>
+<code> [6]   :Access Public Shared</code>
+<code> [7]   :If 0=⎕NC'__sortType'</code>
+<code> [8]       __sortType←''</code>
+<code> [9]   :EndIf</code>
+<code> [10]  __allNumbers←' '~¨⍨↓⎕NL 2</code>
+<code> [11]  __allNumbers←('__'∘≢¨2↑¨__allNumbers)/__allNumbers</code>
+<code> [12]  __allNumbers←__allNumbers,[1.5]⍎¨__allNumbers</code>
+<code> [13]  :If ''≡__sortType</code>
+<code> [14]      __allNumbers←__allNumbers[⍋↑__allNumbers[;1];]</code>
+<code> [15]  :ElseIf ⍬≡__sortType</code>
+<code class="emphasize">→[16]      __allNumbers←__allNumbers[⍋__allNumbers[;2];]</code>
+<code> [17]  :Else</code>
+<code class="emphasize">→[18]      'Invalid sort type: either '''' (alpha) or ⍬ (numeric)'⎕SIGNAL 11</code>
+<code> [19]  :EndIf</code>
+<code> [20]  :If 0≠≢__start←{2::1(819⌶)⍵ ⋄ 1 ⎕C ⍵}⍕__start~'*'</code>
+<code> [21]      __allNumbers←(((⍴,__start)↑[2]↑__allNumbers[;1])∧.=__start)⌿__allNumbers</code>
+<code> [22]  :EndIf</code>
+</div>
+<code class="header" id="listing_3">#.EventCodes.EventCodes.QEM &mdash; 92%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  __r←QEM __y</code>
+<code> [1]      ⍝ In case `y` is an integer `r` becomes the associated error message.\\</code>
+<code> [2]      ⍝ In case `y` is a character vector r becomes the associated error number.\\</code>
+<code> [3]      ⍝ If a provided error message is unknown `⍬` is returned. If `y` is empty `r` is empty.</code>
+<code> [4]   :Access Public Shared</code>
+<code> [5]   :If 0=1↑0⍴∊__y</code>
+<code> [6]       :If 0=≢__y</code>
+<code> [7]           __r←''</code>
+<code> [8]       :Else</code>
+<code> [9]           __list←List''</code>
+<code> [10]          :If 1≠+/__bool←__y=__list[;2]</code>
+<code class="emphasize">→[11]              'Unknown error number'⎕SIGNAL 11</code>
+<code> [12]          :Else</code>
+<code> [13]              __r←1⊃__list[__bool⍳1;]</code>
+<code> [14]          :EndIf</code>
+<code> [15]      :EndIf</code>
+<code> [16]  :Else</code>
+<code> [17]      :If 0=≢__y</code>
+<code> [18]          __r←⍬</code>
+<code> [19]      :Else</code>
+<code> [20]          __list←List''</code>
+<code> [21]          :If 1≠+/__bool←__y∘≡¨__list[;1]</code>
+<code> [22]              'Unknown error message'⎕SIGNAL 11</code>
+<code> [23]          :Else</code>
+<code> [24]              __r←2⊃__list[__bool⍳1;]</code>
+<code> [25]          :EndIf</code>
+<code> [26]      :EndIf</code>
+<code> [27]  :EndIf</code>
+</div>
+<code class="header" id="listing_4">#.EventCodes.EventCodes.History &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  History</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]        ⍝ * 4.0.0</code>
+<code> [3]        ⍝   * Potentially breaking change: `Version` now returns a char vector stemming from the package config file</code>
+<code> [4]        ⍝   * Packages updated (development only)</code>
+<code> [5]        ⍝   * "Make" improved</code>
+<code> [6]        ⍝ * 3.1.0</code>
+<code> [7]        ⍝   * 819⌶ exchanged against ⎕C for 20.0-readiness</code>
+<code> [8]        ⍝ * 3.0.1</code>
+<code> [9]        ⍝   * Package config corrected</code>
+<code> [10]       ⍝ * 3.0.0</code>
+<code> [11]       ⍝   * BREAKING CHANGES:</code>
+<code> [12]       ⍝     * Requires now Dyalog 18.0 or better</code>
+<code> [13]       ⍝     * Is delivered as a Tatin package</code>
+<code> [14]       ⍝\\</code>
+<code> [15]       ⍝ For information regarding older versions see &lt;https://github.com/aplteam/EventCodes/releases&gt;</code>
+</div>
+<code class="header" id="listing_5">#.EventCodes.EventCodes.GetName &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  __name←GetName __eventCode</code>
+<code> [1]      ⍝ Returns the symbolic names for one or more event codes.</code>
+<code> [2]      ⍝ * If the right argument is a scalar or a one-element vector then a text vector is returned.</code>
+<code> [3]      ⍝ * If the right argument is a vector then a vector of text vectors is returned.</code>
+<code> [4]   :Access Public Shared</code>
+<code> [5]   :If 0=≢__eventCode</code>
+<code> [6]       __name←''</code>
+<code> [7]   :Else</code>
+<code> [8]       __allNumbers←' '~¨⍨↓⎕NL 2</code>
+<code> [9]       __allNumbers←⍎¨('__'∘≢¨2↑¨__allNumbers)/__allNumbers</code>
+<code> [10]      __ind←__allNumbers⍳__eventCode</code>
+<code> [11]      'Unknown event number'⎕SIGNAL 6/⍨__ind∨.&gt;⍴__allNumbers</code>
+<code> [12]      __name←(⎕NL-2)[__ind]</code>
+<code> [13]      __name←⊃∘,⍣(⊃1=⍴,__ind)⊣__name</code>
+<code> [14]  :EndIf</code>
+</div>
+<div id="footer">
+<hr>
+<p>Created by "CodeCoverage" version 0.10.7+52 from 2024-06-05</p>
+</div>
+
+</body>
+</html>

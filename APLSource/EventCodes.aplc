@@ -61,12 +61,24 @@
     :Field Public Shared ReadOnly  DEADLOCK                            ←1008
 
     ∇ r←Version
+    ⍝ Returns the version number from `TatinVars` if possible.
+    ⍝ See also `History`
       :Access Public Shared
-      r←({⍵}⍕⎕THIS)'3.1.0+25' '2024-11-30'
+      :If 0<##.⎕NC'TatinVars.CONFIG'
+          r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version
+      :Else
+    ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.
+    ⍝ In such cases we cannot provide a version number, so we return just ''.
+          r←''
+      :EndIf
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 4.0.0
+      ⍝   * Potentially breaking change: `Version` now returns a char vector stemming from the package config file
+      ⍝   * Packages updated (development only)
+      ⍝   * "Make" improved
       ⍝ * 3.1.0
       ⍝   * 819⌶ exchanged against ⎕C for 20.0-readiness
       ⍝ * 3.0.1
